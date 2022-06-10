@@ -22,28 +22,10 @@ func (p *Provider) getDomain(ctx context.Context, zone string) ([]libdns.Record,
 	var libRecords []libdns.Record
 
 	// fetch the details for the domain
-	result, err := p.doRequest(ctx, fqdn, map[string]string{"verbose": "true"})
+	result, err := p.doRequest(ctx, domain)
 	if err != nil {
 		return libRecords, err
 	}
-
-	// append the A and AAAA records which we should have (may be blank)
-	if result[1] != "" {
-		libRecords = append(libRecords, libdns.Record{
-			Type:  "A",
-			Name:  fqdn,
-			Value: result[1],
-		})
-	}
-	if result[2] != "" {
-		libRecords = append(libRecords, libdns.Record{
-			Type:  "AAAA",
-			Name:  fqdn,
-			Value: result[2],
-		})
-	}
-
-	return libRecords, nil
 }
 
 func (p *Provider) setRecord(ctx context.Context, zone string, record libdns.Record, clear bool) error {
@@ -54,7 +36,7 @@ func (p *Provider) setRecord(ctx context.Context, zone string, record libdns.Rec
 	// the record name should typically be relative to the zone
 	domain := libdns.AbsoluteName(record.Name, zone)
 
-	params := map[string]string{"verbose": "true"}
+	params := map[string]string
 
 	switch record.Type {
 	case "TXT":
