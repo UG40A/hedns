@@ -1,4 +1,4 @@
-package duckdns
+package hedns
 
 import (
 	"context"
@@ -128,7 +128,7 @@ func (p *Provider) doRequest(ctx context.Context, domain string, params map[stri
 	body := string(bodyBytes)
 	bodyParts := strings.Split(body, "\n")
 	if bodyParts[0] != "OK" {
-		return nil, fmt.Errorf("DuckDNS request failed, expected (OK) but got (%s), url: [%s], body: %s", bodyParts[0], u, body)
+		return nil, fmt.Errorf("HEDNS request failed, expected (OK) but got (%s), url: [%s], body: %s", bodyParts[0], u, body)
 	}
 
 	return bodyParts, nil
@@ -138,17 +138,6 @@ func (p *Provider) doRequest(ctx context.Context, domain string, params map[stri
 // It must be in format subdomain.duckdns.org,
 // not in format subsubdomain.subdomain.duckdns.org.
 // So strip off everything that is not top 3 levels.
-func getMainDomain(domain string) string {
-	domain = strings.TrimSuffix(domain, ".")
-	split := dns.Split(domain)
-	if strings.HasSuffix(strings.ToLower(domain), "duckdns.org") {
-		if len(split) < 3 {
-			return ""
-		}
-
-		firstSubDomainIndex := split[len(split)-3]
-		return domain[firstSubDomainIndex:]
-	}
 
 	return domain[split[len(split)-1]:]
 }
