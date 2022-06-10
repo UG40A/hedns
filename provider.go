@@ -1,4 +1,4 @@
-package duckdns
+package hedns
 
 import (
 	"context"
