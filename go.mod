@@ -1,4 +1,4 @@
-module github.com/libdns/duckdns
+module github.com/UG40A/hedns
 
 go 1.14
 
