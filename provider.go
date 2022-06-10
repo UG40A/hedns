@@ -10,7 +10,7 @@ import (
 // Provider implements the libdns interfaces for Duck DNS.
 type Provider struct {
 	APIToken       string `json:"api_token,omitempty"`
-	OverrideDomain string `json:"override_domain,omitempty"`
+	Domain 	       string `json:"domain,omitempty"`
 
 	mutex sync.Mutex
 }
