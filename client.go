@@ -61,9 +61,9 @@ func (p *Provider) setRecord(ctx context.Context, zone string, record libdns.Rec
 	case "TXT":
 		params["txt"] = record.Value
 	case "A":
-		params["ip"] = record.Value
+		params["myip"] = record.Value
 	case "AAAA":
-		params["ipv6"] = record.Value
+		params["myip6"] = record.Value
 	default:
 		return fmt.Errorf("unsupported record type: %s", record.Type)
 	}
@@ -97,8 +97,8 @@ func (p *Provider) doRequest(ctx context.Context, domain string, params map[stri
 
 	// set up the query with the params we always set
 	query := u.Query()
-	query.Set("domains", mainDomain)
-	query.Set("token", p.APIToken)
+	query.Set("hostname", mainDomain)
+	query.Set("password", p.APIToken)
 
 	// add the remaining ones for this request
 	for key, val := range params {
