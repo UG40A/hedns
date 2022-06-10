@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/libdns/libdns"
-	//"github.com/miekg/dns"
 )
 
 func (p *Provider) getDomain(ctx context.Context, zone string) ([]libdns.Record, error) {
@@ -63,7 +62,7 @@ func (p *Provider) setRecord(ctx context.Context, zone string, record libdns.Rec
 	case "A":
 		params["myip"] = record.Value
 	case "AAAA":
-		params["myip6"] = record.Value
+		params["myipv6"] = record.Value
 	default:
 		return fmt.Errorf("unsupported record type: %s", record.Type)
 	}
@@ -85,12 +84,7 @@ func (p *Provider) doRequest(ctx context.Context, domain string, params map[stri
 
 	// extract the main domain
 	var mainDomain string
-	if p.OverrideDomain != "" {
-		mainDomain = p.OverrideDomain
-	} else {
-		mainDomain = getMainDomain(domain)
-	}
-
+	mainDomain = p.OverrideDomain
 	if len(mainDomain) == 0 {
 		return nil, fmt.Errorf("unable to find the main domain for: %s", domain)
 	}
