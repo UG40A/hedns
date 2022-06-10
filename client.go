@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/libdns/libdns"
-	"github.com/miekg/dns"
+	//"github.com/miekg/dns"
 )
 
 func (p *Provider) getDomain(ctx context.Context, zone string) ([]libdns.Record, error) {
@@ -132,8 +132,4 @@ func (p *Provider) doRequest(ctx context.Context, domain string, params map[stri
 	}
 
 	return bodyParts, nil
-}
-
-func getMainDomain(hostname string) string {
-	return hostname
 }
