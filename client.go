@@ -84,7 +84,7 @@ func (p *Provider) doRequest(ctx context.Context, domain string, params map[stri
 
 	// extract the main domain
 	var mainDomain string
-	mainDomain = p.OverrideDomain
+	mainDomain = p.Domain
 	if len(mainDomain) == 0 {
 		return nil, fmt.Errorf("unable to find the main domain for: %s", domain)
 	}
