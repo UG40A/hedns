@@ -134,6 +134,6 @@ func (p *Provider) doRequest(ctx context.Context, domain string, params map[stri
 	return bodyParts, nil
 }
 
-func getMainDomain(domain string) string {
-	return domain, nil
+func getMainDomain(hostname string) string {
+	return hostname
 }
