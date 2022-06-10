@@ -134,10 +134,6 @@ func (p *Provider) doRequest(ctx context.Context, domain string, params map[stri
 	return bodyParts, nil
 }
 
-// DuckDNS only lets you write to your subdomain.
-// It must be in format subdomain.duckdns.org,
-// not in format subsubdomain.subdomain.duckdns.org.
-// So strip off everything that is not top 3 levels.
-
-	return domain[split[len(split)-1]:]
+func getMainDomain(domain string) string {
+	return domain, nil
 }
